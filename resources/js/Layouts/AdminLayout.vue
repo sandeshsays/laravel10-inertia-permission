@@ -71,7 +71,7 @@ const showingNavigationDropdown = ref(false);
         <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
             <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
                 <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
-                    <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">Dashboard</h5>
+                    <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">some info here</h5>
                     <button class="w-12 h-16 -mr-2 border-r lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -79,7 +79,7 @@ const showingNavigationDropdown = ref(false);
                     </button>
                     <div class="flex space-x-4">
                         <!--search bar -->
-                        <div hidden class="md:block">
+                        <!-- <div hidden class="md:block">
                             <div class="relative flex items-center text-gray-400 focus-within:text-cyan-400">
                                 <span class="absolute left-4 h-6 flex items-center pr-3 border-r border-gray-300">
                                 <svg xmlns="http://ww50w3.org/2000/svg" class="w-4 fill-current" viewBox="0 0 35.997 36.004">
@@ -88,7 +88,7 @@ const showingNavigationDropdown = ref(false);
                                 </span>
                                 <input type="search" name="leadingIcon" id="leadingIcon" placeholder="Search here" class="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition">
                             </div>
-                        </div>
+                        </div> -->
                         <!--/search bar -->
                         <button aria-label="search" class="w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200 md:hidden">
                             <svg xmlns="http://ww50w3.org/2000/svg" class="w-4 mx-auto fill-current text-gray-600" viewBox="0 0 35.997 36.004">
