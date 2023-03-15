@@ -1,14 +1,20 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import VueMultiselect from 'vue-multiselect';
+
+
+defineProps({
+    permissions: Array,
+});
 
 const form = useForm({
-    name:""
+    name:"",
+    permissions: [],
 });
 </script>
 
@@ -28,7 +34,7 @@ const form = useForm({
                 <h1 class="text-2xl p-4">Create Role</h1>
 
                 <form @submit.prevent="form.post(route('roles.store'))">
-                    <div>
+                    <div class="mt-4">
                         <InputLabel for="name" value="Name"/>
 
                         <TextInput
@@ -44,6 +50,20 @@ const form = useForm({
                         <InputError class="mt-2" :message="form.errors.name" />
                     </div>
 
+                    <div class="mt-4">
+                        <InputLabel for="permissions" value="Permissions"/>
+
+                        <VueMultiselect
+                            v-model="form.permissions"
+                            :options="permissions"
+                            :multiple="true"
+                            :close-on-select="true"
+                            placeholder="Pick some"
+                            label="name"
+                            track-by="id"
+                        />
+                    </div>
+
                     <div class="flex items-center mt-4">
 
                         <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
@@ -55,3 +75,5 @@ const form = useForm({
         </div>
     </AdminLayout>
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

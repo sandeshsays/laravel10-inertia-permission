@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RevokePermissionFromRoleController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -32,6 +33,7 @@ Route::get('/', function () {
 Route::resource('/users',UserController::class);
 Route::resource('/roles',RoleController::class);
 Route::resource('/permissions',PermissionController::class);
+Route::delete('/roles/{role}/permissions/{permission}',RevokePermissionFromRoleController::class)->name('roles.permissions.destroy');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

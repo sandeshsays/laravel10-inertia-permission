@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRoleRequest;
+use App\Http\Resources\PermissionResource;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Inertia\Response;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -27,7 +29,9 @@ class RoleController extends Controller
      */
     public function create():Response
     {
-        return Inertia::render('Admin/Roles/Create');
+        return Inertia::render('Admin/Roles/Create',[
+            'permissions' => PermissionResource::collection(Permission::all())
+        ]);
     }
 
     /**
@@ -35,9 +39,12 @@ class RoleController extends Controller
      */
     public function store(CreateRoleRequest $request):RedirectResponse
     {
-        // Role::create(['name' => $request->name]);
+        $role = Role::create(['name' => $request->name]);
+        if($request->has('permissions')){
+            $role->syncPermissions($request->input('permissions.*.name'));
+        }
 
-        Role::create($request->validated());
+        // Role::create($request->validated());
         return to_route('roles.index');
     }
 
@@ -55,9 +62,11 @@ class RoleController extends Controller
     public function edit(string $id)
     {
         $role = Role::findById($id);
+        $role->load('permissions');
 
         return Inertia::render('Admin/Roles/Edit',[
-            'role' => new RoleResource($role)
+            'role' => new RoleResource($role),
+            'permissions' => PermissionResource::collection(Permission::all())
         ]);
     }
 
@@ -67,9 +76,11 @@ class RoleController extends Controller
     public function update(CreateRoleRequest $request, string $id)
     {
         $role = Role::findById($id);
-        $role->update($request->validated());
-        return to_route('roles.index');
-
+        $role->update([
+            'name' => $request->name
+        ]);
+        $role->syncPermissions($request->input('permissions.*.name'));
+        return back();
     }
 
     /**
