@@ -66,7 +66,7 @@ const deleteUser = (id) => {
                                 <button @click="confirmDeleteUser" class="text-red-400 hover:text-red-600">Delete</button>
                                 <Modal :show="showConfirmDeleteUserModal" @close="closeModal">
                                     <div class="p-6">
-                                        <h2 class="text-lg font-semibold">Are you sure?</h2>
+                                        <h2 class="text-lg font-semibold">Are you sure you want to delete record ?</h2>
                                         <div class="mt-6 flex space-x-4">
                                             <DangerButton @click="deleteUser(user.id)">Delete</DangerButton>
                                             <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
