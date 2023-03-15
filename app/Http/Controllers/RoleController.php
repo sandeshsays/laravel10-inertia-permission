@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Resources\RoleResource;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -32,12 +33,11 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateRoleRequest $request)
+    public function store(CreateRoleRequest $request):RedirectResponse
     {
         // Role::create(['name' => $request->name]);
 
         Role::create($request->validated());
-
         return to_route('roles.index');
     }
 

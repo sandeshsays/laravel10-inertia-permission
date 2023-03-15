@@ -20,7 +20,7 @@ defineProps(['roles']);
 
         <div class="max-w-7xl mx-auto py-4">
             <div class="flex justify-between">
-                <h1>Roles Index Page</h1>
+                <h1>Role Index Page</h1>
                 <Link :href="route('roles.create')" class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">New Role</Link>
             </div>
             <div class="mt-6">

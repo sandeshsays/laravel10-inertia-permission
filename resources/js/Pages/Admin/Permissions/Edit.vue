@@ -8,33 +8,32 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
-    role:{
+    permission:{
         type: Object,
         required: true
     }
 });
 
 const form = useForm({
-    name: props.role.name
+    name: props.permission?.name,
 });
 </script>
 
 <template>
-    <Head title="Update role" />
+    <Head title="Update permission" />
 
     <AdminLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Update Role</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Update Permission</h2>
         </template>
 
         <div class="max-w-7xl mx-auto py-4">
             <div class="flex justify-between">
-                <Link :href="route('roles.index')" class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">Back</Link>
+                <Link :href="route('permissions.index')" class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">Back</Link>
             </div>
             <div class="mt-6 max-w-md mx-auto bg-slate-100 shadow-lg rounded-lg p-6">
-                <h1 class="text-2xl p-4">Update Role</h1>
-
-                <form @submit.prevent="form.put(route('roles.update', role.id))">
+                <h1 class="text-2xl p-4">Update Permission</h1>
+                <form @submit.prevent="form.put(route('permissions.update',permission.id))">
                     <div>
                         <InputLabel for="name" value="Name"/>
 
