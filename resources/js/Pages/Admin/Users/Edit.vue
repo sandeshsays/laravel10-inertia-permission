@@ -39,7 +39,7 @@ onMounted(() => {
 });
 
 watch(
-    () => props.role,
+    () => props.user,
     () => {
         form.permissions = props.user.permissions,
         form.roles = props.user.roles
@@ -121,8 +121,8 @@ watch(
                                     <TableDataCell>{{ userRole.id }}</TableDataCell>
                                     <TableDataCell>{{ userRole.name }}</TableDataCell>
                                     <TableDataCell class="space-x-4">
-                                        <Link href=""
-                                        method="DELETE" as="button" class="text-red-400 hover:text-red-600">Revoke</Link>
+                                        <Link :href="route('users.roles.destroy',[user.id, userRole.id])"
+                                        method="DELETE" as="button" class="text-red-400 hover:text-red-600" preserve-scroll>Revoke</Link>
                                     </TableDataCell>
                                 </TableRow>
                             </template>
@@ -160,8 +160,8 @@ watch(
                                     <TableDataCell>{{ userPermission.id }}</TableDataCell>
                                     <TableDataCell>{{ userPermission.name }}</TableDataCell>
                                     <TableDataCell class="space-x-4">
-                                        <Link href=""
-                                        method="DELETE" as="button" class="text-red-400 hover:text-red-600">Revoke</Link>
+                                        <Link :href="route('users.permissions.destroy',[user.id, userPermission.id])"
+                                        method="DELETE" as="button" class="text-red-400 hover:text-red-600" preserve-scroll>Revoke</Link>
                                     </TableDataCell>
                                 </TableRow>
                             </template>
