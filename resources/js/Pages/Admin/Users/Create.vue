@@ -30,7 +30,7 @@ const submit = () => {
                 <Link :href="route('users.index')" class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">Back</Link>
             </div>
         </div>
-        <div class="max-w-md mx-auto mt-6 p-6 bg-slate-100 rounded-lg">
+        <div class="max-w-6xl mx-auto mt-6 p-6 bg-slate-100 rounded-lg">
             <h1 class="text-2xl p-4">Create User</h1>
 
             <form @submit.prevent="submit">
