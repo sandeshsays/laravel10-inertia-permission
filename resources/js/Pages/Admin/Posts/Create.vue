@@ -21,7 +21,7 @@ const form = useForm({
 
         <div class="max-w-7xl mx-auto py-4">
             <div class="flex justify-between">
-                <Link :href="route('roles.index')" class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">Back</Link>
+                <Link :href="route('posts.index')" class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">Back</Link>
             </div>
             <div class="mt-6 max-w-md mx-auto bg-slate-100 shadow-lg rounded-lg p-6">
                 <h1 class="text-2xl p-4">Create Post</h1>

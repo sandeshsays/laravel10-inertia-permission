@@ -1,6 +1,7 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { usePermission } from '@/composables/permissions';
 import { ref } from 'vue';
 import Table from '@/Components/Table.vue';
 import TableRow from '@/Components/TableRow.vue';
@@ -12,9 +13,11 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 
 defineProps(['posts']);
 
-const form = useForm({})
+const form = useForm({});
 
 const showConfirmDeletePostModal = ref(false)
+
+const { hasPermission } = usePermission
 
 const confirmDeletePost = () => {
     showConfirmDeletePostModal.value = true;
