@@ -1,25 +1,17 @@
 <?php
 
-use App\Http\Controllers\RevokePermissionFromRoleController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\RemoveRoleFromUserController;
+use App\Http\Controllers\RevokePermissionFromRoleController;
+use App\Http\Controllers\RevokePermissionFromUserController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -30,10 +22,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::resource('/users',UserController::class);
-Route::resource('/roles',RoleController::class);
-Route::resource('/permissions',PermissionController::class);
-Route::delete('/roles/{role}/permissions/{permission}',RevokePermissionFromRoleController::class)->name('roles.permissions.destroy');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -45,8 +34,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth','role:admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::middleware(['auth','role:admin'])->prefix('/admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::resource('/users',UserController::class);
+    Route::resource('/roles',RoleController::class);
+    Route::resource('/permissions',PermissionController::class);
+    Route::delete('/roles/{role}/permissions/{permission}',RevokePermissionFromRoleController::class)->name('roles.permissions.destroy');
+    Route::delete('/users/{user}/permissions/{permission}',RevokePermissionFromUserController::class)->name('users.permissions.destroy');
+    Route::delete('/users/{user}/roles/{role}',RemoveRoleFromUserController::class)->name('users.roles.destroy');
 });
+
+Route::resource('/posts',PostController::class)->middleware(['role:admin|user|moderator']);
 
 require __DIR__.'/auth.php';

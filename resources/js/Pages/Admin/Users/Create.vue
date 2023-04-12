@@ -5,13 +5,20 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import VueMultiselect from 'vue-multiselect';
+
+defineProps({
+    roles: Array,
+    permissions: Array
+})
 
 const form = useForm({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
-    terms: false,
+    roles: [],
+    permissions: []
 });
 
 const submit = () => {
@@ -30,7 +37,7 @@ const submit = () => {
                 <Link :href="route('users.index')" class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded">Back</Link>
             </div>
         </div>
-        <div class="max-w-md mx-auto mt-6 p-6 bg-slate-100 rounded-lg">
+        <div class="max-w-6xl mx-auto mt-6 p-6 bg-slate-100 rounded-lg">
             <h1 class="text-2xl p-4">Create User</h1>
 
             <form @submit.prevent="submit">
@@ -95,6 +102,37 @@ const submit = () => {
                     <InputError class="mt-2" :message="form.errors.password_confirmation" />
                 </div>
 
+                <div class="mt-4">
+                        <InputLabel for="roles" value="Roles"/>
+
+                        <VueMultiselect
+                            v-model="form.roles"
+                            :options="roles"
+                            :multiple="true"
+                            :close-on-select="true"
+                            placeholder="Pick some"
+                            label="name"
+                            track-by="id"
+                        />
+                </div>
+
+
+
+                <div class="mt-4">
+                        <InputLabel for="permissions" value="Permissions"/>
+
+                        <VueMultiselect
+                            v-model="form.permissions"
+                            :options="permissions"
+                            :multiple="true"
+                            :close-on-select="true"
+                            placeholder="Pick some"
+                            label="name"
+                            track-by="id"
+                        />
+                </div>
+
+
                 <div class="flex items-center justify-end mt-4">
 
                     <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
@@ -105,3 +143,5 @@ const submit = () => {
         </div>
     </AdminLayout>
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

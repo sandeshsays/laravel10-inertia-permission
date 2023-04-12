@@ -7,8 +7,10 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import SidebarLink from '@/Components/SidebarLink.vue';
+import { usePermission } from '@/composables/permissions';
 
 const showingNavigationDropdown = ref(false);
+const {hasRole} = usePermission();
 </script>
 
 <template>
@@ -22,6 +24,7 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <ul class="space-y-2 tracking-wide mt-8">
+                <template v-if="hasRole('admin')">
                     <li>
                         <SidebarLink
                         href="/dashboard"
@@ -50,13 +53,27 @@ const showingNavigationDropdown = ref(false);
                         <SidebarLink
                         :href="route('permissions.index')"
                         :active="route().current('permissions.index')" aria-label="permissions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16"> <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/> <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/> </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
                             <span class="-mr-1 font-medium">Permissions</span>
+                        </SidebarLink>
+                    </li>
+                </template>
+
+
+                    <li>
+                        <SidebarLink
+                        :href="route('posts.index')"
+                        :active="route().current('posts.index')" aria-label="users">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+                        </svg>
+                            <span class="-mr-1 font-medium">Posts</span>
                         </SidebarLink>
                     </li>
                 </ul>
             </div>
-
             <div class="px-6 -mx-6 pt-4 flex justify-between items-center border-t">
                 <Link
                 :href="route('logout')" method="post" as="button"
@@ -71,7 +88,7 @@ const showingNavigationDropdown = ref(false);
         <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
             <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
                 <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
-                    <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">some info here</h5>
+                    <h5 hidden class="text-2xl text-gray-600 font-medium lg:block">{{ $page.props.auth.user.name }}</h5>
                     <button class="w-12 h-16 -mr-2 border-r lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
